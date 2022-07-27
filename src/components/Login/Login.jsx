@@ -1,59 +1,121 @@
 import { useState } from 'react';
 import { useFormik } from 'formik';
 import { Link, useNavigate } from 'react-router-dom';
+import * as Yup from 'yup';
+import Swal from 'sweetalert2';
 
 const Login = () => {
   const navigate = useNavigate();
+  const { REACT_APP_API_URL } = process.env;
 
   const initialValues = {
-    email: '',
+    userName: '',
     password: '',
   };
 
-  const validate = (values) => {
-    const errors = {};
-    if (!values.email) {
-      errors.email = 'El mail es requerido';
-    }
-    if (!values.password) {
-      errors.password = 'La contraseña es requerida';
-    }
-    return errors;
-  };
-
   const onSubmit = () => {
-    localStorage.setItem('logged', true);
-    navigate('/', { replace: true });
+    const { userName, password } = values;
+    fetch(`${REACT_APP_API_URL}auth/login`, {
+      headers: { 'Content-Type': 'application/json' },
+      method: 'POST',
+      body: JSON.stringify({
+        userName,
+        password,
+      }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        switch (data.message) {
+          case 'OK':
+            localStorage.setItem('token', data?.result?.token);
+            localStorage.setItem('username', data?.result?.user?.userName);
+            localStorage.setItem('teamID', data?.result?.user?.teamID);
+            navigate('/', { replace: true });
+            break;
+          case 'UNAUTHORIZED':
+            Swal.fire({
+              title: 'Unauthorized',
+              text: 'Unauthorized',
+              confirmButtonText: 'Aceptar',
+              width: '300px',
+              timer: 5000,
+              timerProgressBar: true,
+            });
+            break;
+          case 'NOT FOUND':
+            Swal.fire({
+              title: 'NOT FOUND',
+              text: 'NOT FOUND',
+              confirmButtonText: 'Aceptar',
+              width: '300px',
+              timer: 5000,
+              timerProgressBar: true,
+            });
+            break;
+          default:
+            break;
+        }
+      });
   };
 
-  const formik = useFormik({ initialValues, validate, onSubmit });
+  const errorMessages = {
+    required: '* Este campo es requerido',
+  };
+
+  const validationSchema = Yup.object().shape({
+    userName: Yup.string()
+      .min(4, 'La cantidad minima de caracteres es 4')
+      .required(errorMessages.required),
+    password: Yup.string()
+      .min(4, 'La cantidad minima de caracteres es 4')
+      .required(errorMessages.required),
+  });
+
+  const formik = useFormik({ initialValues, onSubmit, validationSchema });
+  const {
+    handleChange,
+    values,
+    handleSubmit,
+    errors,
+    touched,
+    handleBlur,
+    setFieldValue,
+  } = formik;
 
   return (
     <div className="Form_container">
       <form onSubmit={formik.handleSubmit}>
         <h3>Iniciar Sesión</h3>
         <div>
-          <label htmlFor="email">Email</label>
+          <label htmlFor="userName">Nombre de usuario</label>
           <input
-            type="email"
-            name="email"
-            id="email"
-            onChange={formik.handleChange}
-            value={formik.values.email}
+            type="userName"
+            name="userName"
+            id="userName"
+            className={errors.userName && touched.userName ? 'error' : ''}
+            onChange={handleChange}
+            onBlur={handleBlur}
+            value={values.userName}
           />
         </div>
-        {formik.errors.email && <div>{formik.errors.email}</div>}
+        {errors.userName && touched.userName && (
+          <span className="error-message">{errors.userName}</span>
+        )}
         <div>
           <label htmlFor="password">Password</label>
           <input
             type="password"
             name="password"
             id="password"
-            onChange={formik.handleChange}
-            value={formik.values.password}
+            className={errors.password && touched.password ? 'error' : ''}
+            onChange={handleChange}
+            onBlur={handleBlur}
+            value={values.password}
           />
         </div>
-        {formik.errors.password && <div>{formik.errors.password}</div>}
+        {errors.password && touched.password && (
+          <span className="error-message">{errors.password}</span>
+        )}
         <div>
           <button type="submit">Enviar</button>
         </div>

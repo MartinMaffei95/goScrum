@@ -1,0 +1,8 @@
+// tasksREQUEST
+export const TASKS_REQUEST = 'TASKS_REQUEST';
+export const TASKS_SUCCESS = 'TASKS_SUCCESS';
+export const TASKS_FAILURE = 'TASKS_FAILURE';
+// userREQUEST
+export const USER_REQUEST = 'USER_REQUEST';
+export const USER_SUCCESS = 'USER_SUCCESS';
+export const USER_FAILURE = 'USER_FAILURE';

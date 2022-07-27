@@ -9,8 +9,9 @@ import { Switch, FormControlLabel, avatarGroupClasses } from '@mui/material';
 const Register = () => {
   const [data, setData] = useState();
   const navigate = useNavigate();
+  const { REACT_APP_API_URL } = process.env;
   useEffect(() => {
-    fetch('https://goscrum-api.alkemy.org/auth/data')
+    fetch(`${REACT_APP_API_URL}auth/data`)
       .then((res) => res.json())
       .then((data) => setData(data.result));
   }, []);
@@ -48,7 +49,7 @@ const Register = () => {
 
   const onSubmit = () => {
     const teamID = !values.teamID ? uuidv4() : values.teamID;
-    fetch('https://goscrum-api.alkemy.org/auth/register', {
+    fetch(`${REACT_APP_API_URL}auth/register`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -65,7 +66,11 @@ const Register = () => {
     })
       .then((res) => res.json())
       .then((data) => {
-        navigate('/registred/' + data?.result?.user?.teamID, { replace: true });
+        console.log(data);
+        if (data.message === 'CREATED') {
+          return navigate('/', { replace: true });
+        }
+        alert('error');
       });
   };
 
