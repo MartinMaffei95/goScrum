@@ -1,11 +1,19 @@
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import './TaskForm.styles.css';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useState } from 'react';
+import { getTasks } from '../../store/actions/tasksActions';
 
+import { useSelector, useDispatch } from 'react-redux';
+import { GrFormClose } from 'react-icons/gr';
 const TaskForm = () => {
   const { REACT_APP_API_URL } = process.env;
+
+  const [viewOn, setViewOn] = useState(false);
+  const handleView = () => {
+    !viewOn ? setViewOn(true) : setViewOn(false);
+  };
 
   const initialValues = {
     title: '',
@@ -30,6 +38,7 @@ const TaskForm = () => {
     description: Yup.string().required(errorMessages.required),
   });
 
+  const dispatch = useDispatch();
   const onSubmit = () => {
     const { title, status, importance, description } = values;
     fetch(`${REACT_APP_API_URL}task`, {
@@ -49,6 +58,8 @@ const TaskForm = () => {
     })
       .then((res) => res.json())
       .then((data) => {
+        dispatch(getTasks(''));
+        setViewOn(false);
         resetForm();
         //TOAST
         toast('Tarea Creada!');
@@ -68,15 +79,35 @@ const TaskForm = () => {
     resetForm,
     values,
   } = formik;
+
   return (
     <section>
       <div>
         <ToastContainer />
       </div>
-      <h3>Crea tus Tareas!</h3>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <div>
+      <button
+        className={`button primary newTask ${viewOn && 'onScreen'} `}
+        onClick={handleView}
+      >
+        + Nueva Tarea!
+      </button>
+
+      <form
+        className={`form create_Task ${viewOn && 'onScreen'}`}
+        onSubmit={handleSubmit}
+      >
+        <div className="title_form">
+          <h3>Crea tus Tareas! </h3>
+          <GrFormClose
+            className="close_Form"
+            onClick={() => {
+              setViewOn(false);
+            }}
+          />
+        </div>
+
+        <div className="inputs-container">
+          <div className="inputs-container_div">
             <input
               type="text"
               name="title"
@@ -90,7 +121,7 @@ const TaskForm = () => {
           {errors.title && touched.title && (
             <span className="error-message">{errors.title}</span>
           )}
-          <div>
+          <div className="inputs-container_div">
             <select
               className={errors.status && touched.status ? 'error' : ''}
               name="status"
@@ -107,7 +138,7 @@ const TaskForm = () => {
           {errors.status && touched.status && (
             <span className="error-message">{errors.status}</span>
           )}
-          <div>
+          <div className="inputs-container_div">
             <select
               className={errors.importance && touched.importance ? 'error' : ''}
               name="importance"
@@ -124,7 +155,7 @@ const TaskForm = () => {
           {errors.importance && touched.importance && (
             <span className="error-message">{errors.importance}</span>
           )}
-          <div>
+          <div className="inputs-container_div">
             <textarea
               name="description"
               className={
@@ -140,7 +171,9 @@ const TaskForm = () => {
             <span className="error-message">{errors.description}</span>
           )}
         </div>
-        <button type="submit"> Crear </button>
+        <button className="button primary" type="submit">
+          Crear
+        </button>
       </form>
     </section>
   );

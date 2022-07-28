@@ -1,5 +1,5 @@
 import { useState } from 'react';
-
+import { AiOutlineDelete } from 'react-icons/ai';
 const Task = ({
   deleteCard,
   editCardStatus,
@@ -35,7 +35,7 @@ const Task = ({
           deleteCard(_id);
         }}
       >
-        x
+        <AiOutlineDelete />
       </div>
       <h3>{title}</h3>
       <h6>{datetime}</h6>
@@ -43,17 +43,22 @@ const Task = ({
       <div className="card_buttons">
         <button
           type="button"
+          className={`button primary ${status}`}
           onClick={() => {
             editCardStatus(data);
           }}
         >
           {status}
         </button>
-        <button type="button">{importance}</button>
+        <button type="button" className={`button primary ${importance}`}>
+          {importance}
+        </button>
       </div>
+
       {!showMore && (
         <p className="description">{limitString(description).string}</p>
       )}
+
       {showMore && (
         <>
           <p className="description">{description}</p>

@@ -2,7 +2,6 @@ import { useResize } from '../../Hooks/useResize';
 import Header from '../Header/Header';
 import TaskForm from '../TaskForm/TraskForm';
 import Task from './Task/Task';
-import './Tasks.styles.css';
 import {
   Radio,
   RadioGroup,
@@ -17,8 +16,26 @@ import {
   editTaskStatus,
   deleteTask,
 } from '../../store/actions/tasksActions';
+import './GlobalRadio.css';
 
 import { useSelector, useDispatch } from 'react-redux';
+import { createTheme } from '@mui/material/styles';
+
+export const theme = createTheme({
+  status: {
+    danger: '#e53e3e',
+  },
+  palette: {
+    primary: {
+      main: '#0971f1',
+      darker: '#053e85',
+    },
+    neutral: {
+      main: '#64748B',
+      contrastText: '#fff',
+    },
+  },
+});
 
 const Tasks = () => {
   const { isPhone } = useResize();
@@ -108,13 +125,13 @@ const Tasks = () => {
   const handleSearch = (e) => {
     setSearch(e.currentTarget.value);
   };
-  useEffect(() => {
-    dispatch(getTasks(taskFromWho === 'ME' ? '/me' : ''));
-  }, [taskFromWho, dispatch]);
 
   const { loading, error, tasks } = useSelector((state) => {
     return state.tasksReducer;
   });
+  useEffect(() => {
+    dispatch(getTasks(taskFromWho === 'ME' ? '/me' : ''));
+  }, [taskFromWho, dispatch]);
 
   useEffect(() => {
     if (tasks?.length) {
@@ -122,9 +139,20 @@ const Tasks = () => {
       setRenderList(tasks);
     }
   }, [tasks]);
+
   return (
     <>
-      {loading && <div>Cargando</div>}
+      {loading && (
+        <div className="loadingScreen">
+          <div className="loadingAnimationText">
+            <span className="text animation">Cargando</span>
+            <span className="point animation">.</span>
+            <span className="point animation">.</span>
+            <span className="point animation">.</span>
+          </div>
+        </div>
+      )}
+
       <Header />
       <main>
         <TaskForm />
@@ -145,12 +173,12 @@ const Tasks = () => {
               >
                 <FormControlLabel
                   value="ALL"
-                  control={<Radio />}
+                  control={<Radio color="primary" />}
                   label="Todas"
                 />
                 <FormControlLabel
                   value="ME"
-                  control={<Radio />}
+                  control={<Radio color="primary" />}
                   label="Mis tareas"
                 />
               </RadioGroup>

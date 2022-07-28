@@ -1,0 +1,23 @@
+.MuiRadio-root {
+  background-color: rgb(255, 0, 0);
+}
+
+.MuiRadio-root:hover {
+  color: red;
+  background-color: red;
+}
+
+.MuiRadio-root:checked {
+  color: red;
+  background-color: red;
+}
+
+.MuiRadio-colorPrimary {
+  color: red;
+  background: red;
+}
+
+.Mui-checked {
+  color: red;
+  background: red;
+}

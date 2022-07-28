@@ -56,7 +56,7 @@ export const editTaskStatus = (data) => (dispatch) => {
         title: data.title,
         importance: data.importance,
         status: statusArr[newStatusIndex],
-        description: data.status,
+        description: data.description,
       },
     }),
   })
