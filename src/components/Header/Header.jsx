@@ -70,7 +70,7 @@ const Header = () => {
               </button>
             </li>
             <li>
-              <div>Tareas creadas: {tasks.length} </div>
+              <div>Tareas creadas: {tasks && tasks.length} </div>
             </li>
             <li>
               <button className="button terciary" onClick={handleLogout}>

@@ -7,6 +7,7 @@
 :root {
   --bgColor: #c1c0c0;
   --borderLine: 2px solid grey;
+  --grayColor: #5b5a59;
 
   --primaryColor: #ff9500;
   --primaryColorAccent: #ff6200;
@@ -171,15 +172,56 @@ span span {
   margin-block: 2vh;
 }
 
+.list_header {
+  display: flex;
+  position: relative;
+  flex-direction: row;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+
+.list_header .filterBtn {
+  position: absolute;
+  display: flex;
+  right: 0;
+  font-size: 0.7rem;
+  font-weight: lighter;
+  color: var(--grayColor);
+  text-decoration-color: var(--grayColor);
+  gap: 0.1rem;
+  align-self: flex-end;
+}
+
+.filterBtn .triangle {
+  align-self: center;
+}
+
 .filters {
+  max-height: 0;
+  overflow: hidden;
 }
 
-.MuiRadio-colorPrimary {
-  color: red;
+.filters.onScreen {
+  max-height: 100%;
 }
 
-.colorPrimary {
-  color: red;
+.filters input,
+.filters select {
+  width: 90vw;
+  background: none;
+  margin-block: 0.25rem;
+  padding: 0.2rem;
+  border-radius: 8px;
+  border: solid 1px var(--primaryColorAccent);
+}
+
+.formControl {
+  display: flex;
+  width: 100%;
+}
+.radio-container {
+  display: flex;
+  justify-content: space-around;
 }
 
 /* FORM FOR NEW TASK*/

@@ -19,25 +19,11 @@ import {
 import './GlobalRadio.css';
 
 import { useSelector, useDispatch } from 'react-redux';
-import { createTheme } from '@mui/material/styles';
-
-export const theme = createTheme({
-  status: {
-    danger: '#e53e3e',
-  },
-  palette: {
-    primary: {
-      main: '#0971f1',
-      darker: '#053e85',
-    },
-    neutral: {
-      main: '#64748B',
-      contrastText: '#fff',
-    },
-  },
-});
+import { orange } from '@mui/material/colors';
+import { GoTriangleDown } from 'react-icons/go';
 
 const Tasks = () => {
+  const [viewOn, setViewOn] = useState(false);
   const { isPhone } = useResize();
   const [list, setList] = useState(null);
   const [renderList, setRenderList] = useState(null);
@@ -140,6 +126,9 @@ const Tasks = () => {
     }
   }, [tasks]);
 
+  const handleView = () => {
+    !viewOn ? setViewOn(true) : setViewOn(false);
+  };
   return (
     <>
       {loading && (
@@ -159,30 +148,11 @@ const Tasks = () => {
         <section className="wrapper_list">
           <div className="list_header">
             <h2>Mis tareas</h2>
+            <span onClick={handleView} className="button terciary filterBtn">
+              Filtrar <GoTriangleDown className="triangle" />
+            </span>
           </div>
-          <div className="filters">
-            <FormControl>
-              <RadioGroup
-                row
-                aria-labelledby="demo-row-radio-buttons-group-label"
-                defaultValue="ALL"
-                onChange={(e) => {
-                  setTaskFromWho(e.currentTarget.value);
-                  setFilters({ status: 'ALL', importance: 'ALL' });
-                }}
-              >
-                <FormControlLabel
-                  value="ALL"
-                  control={<Radio color="primary" />}
-                  label="Todas"
-                />
-                <FormControlLabel
-                  value="ME"
-                  control={<Radio color="primary" />}
-                  label="Mis tareas"
-                />
-              </RadioGroup>
-            </FormControl>
+          <div className={`filters ${viewOn && 'onScreen'}`}>
             <br />
             <div className="search">
               <input
@@ -216,6 +186,48 @@ const Tasks = () => {
               <option value="IN PROGRESS">En proceso</option>
               <option value="FINISHED">Terminada</option>
             </select>
+            <FormControl className="formControl">
+              <RadioGroup
+                className="radio-container"
+                row
+                aria-labelledby="demo-row-radio-buttons-group-label"
+                defaultValue="ALL"
+                onChange={(e) => {
+                  setTaskFromWho(e.currentTarget.value);
+                  setFilters({ status: 'ALL', importance: 'ALL' });
+                }}
+              >
+                <FormControlLabel
+                  value="ALL"
+                  control={
+                    <Radio
+                      color="primary"
+                      sx={{
+                        color: orange[800],
+                        '&.Mui-checked': {
+                          color: orange[600],
+                        },
+                      }}
+                    />
+                  }
+                  label="Todas"
+                />
+                <FormControlLabel
+                  value="ME"
+                  control={
+                    <Radio
+                      sx={{
+                        color: orange[800],
+                        '&.Mui-checked': {
+                          color: orange[600],
+                        },
+                      }}
+                    />
+                  }
+                  label="Mis tareas"
+                />
+              </RadioGroup>
+            </FormControl>
           </div>
           {isPhone ? (
             // Render Phone
