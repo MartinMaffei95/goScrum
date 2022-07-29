@@ -153,40 +153,49 @@ const Tasks = () => {
             </span>
           </div>
           <div className={`filters ${viewOn && 'onScreen'}`}>
-            <br />
-            <div className="search">
+            <div className=" filterContainer search">
+              <label htmlFor="search">Filtrar por Nombre:</label>
               <input
                 type="text"
-                placeholder="Buscar por titulo..."
+                name="search"
+                placeholder="Busquemos algo!"
                 onChange={handleSearch}
               />
             </div>
-            <label htmlFor="importance">Filtrar por importancia:</label>
-            <select
-              name="importance"
-              onChange={handleFilter}
-              onBlur={handleFilter}
-              value={filters.importance}
-            >
-              <option value="ALL">Todas</option>
-              <option value="LOW">Baja</option>
-              <option value="MEDIUM">Media</option>
-              <option value="HIGH">Alta</option>
-            </select>
-            <br />
-            <label htmlFor="status"> Filtrar por estado:</label>
-            <select
-              name="status"
-              onChange={handleFilter}
-              onBlur={handleFilter}
-              value={filters.status}
-            >
-              <option value="ALL">Todas</option>
-              <option value="NEW">Nuevo</option>
-              <option value="IN PROGRESS">En proceso</option>
-              <option value="FINISHED">Terminada</option>
-            </select>
-            <FormControl className="formControl">
+            {isPhone && (
+              <>
+                <div className="filterContainer">
+                  <label htmlFor="importance">Filtrar por importancia:</label>
+                  <select
+                    name="importance"
+                    onChange={handleFilter}
+                    onBlur={handleFilter}
+                    value={filters.importance}
+                  >
+                    <option value="ALL">Todas</option>
+                    <option value="LOW">Baja</option>
+                    <option value="MEDIUM">Media</option>
+                    <option value="HIGH">Alta</option>
+                  </select>
+                </div>
+                <div className="filterContainer">
+                  <label htmlFor="status"> Filtrar por estado:</label>
+                  <select
+                    name="status"
+                    onChange={handleFilter}
+                    onBlur={handleFilter}
+                    value={filters.status}
+                  >
+                    <option value="ALL">Todas</option>
+                    <option value="NEW">Nuevo</option>
+                    <option value="IN PROGRESS">En proceso</option>
+                    <option value="FINISHED">Terminada</option>
+                  </select>
+                </div>
+              </>
+            )}
+
+            <FormControl className="formControl ">
               <RadioGroup
                 className="radio-container"
                 row

@@ -45,13 +45,13 @@ const Header = () => {
 
   return (
     <header>
-      <span>
-        <span>Go</span>Scrum
-      </span>
+      <div className="logo">
+        <span className="logo accent">Go</span>Scrum
+      </div>
       <div>
         <div>
           <div
-            className={`userName button primary ${viewOn && 'onScreen'}`}
+            className={`userName button terciary ${viewOn && 'onScreen'}`}
             onClick={handleView}
           >
             {localStorage.getItem('username')}

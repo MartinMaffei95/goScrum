@@ -81,7 +81,7 @@ const TaskForm = () => {
   } = formik;
 
   return (
-    <section>
+    <section className="newTaskSection">
       <div>
         <ToastContainer />
       </div>
@@ -106,14 +106,15 @@ const TaskForm = () => {
           />
         </div>
 
-        <div className="inputs-container">
-          <div className="inputs-container_div">
+        <div className="inputs-container ">
+          <div className="inputs-container_div filterContainer">
+            <label htmlFor="title"> Titulo</label>
             <input
               type="text"
               name="title"
               onChange={handleChange}
               onBlur={handleBlur}
-              placeholder="Coloca tu titulo"
+              placeholder="Tarea 1"
               className={errors.title && touched.title ? 'error' : ''}
               value={values.title}
             />
@@ -121,7 +122,8 @@ const TaskForm = () => {
           {errors.title && touched.title && (
             <span className="error-message">{errors.title}</span>
           )}
-          <div className="inputs-container_div">
+          <div className="inputs-container_div filterContainer">
+            <label htmlFor="status"> Estado:</label>
             <select
               className={errors.status && touched.status ? 'error' : ''}
               name="status"
@@ -138,7 +140,8 @@ const TaskForm = () => {
           {errors.status && touched.status && (
             <span className="error-message">{errors.status}</span>
           )}
-          <div className="inputs-container_div">
+          <div className="inputs-container_div filterContainer">
+            <label htmlFor="importance">Prioridad:</label>
             <select
               className={errors.importance && touched.importance ? 'error' : ''}
               name="importance"
@@ -155,7 +158,8 @@ const TaskForm = () => {
           {errors.importance && touched.importance && (
             <span className="error-message">{errors.importance}</span>
           )}
-          <div className="inputs-container_div">
+          <div className="inputs-container_div filterContainer">
+            <label htmlFor="description"> Coloca una descripcion</label>
             <textarea
               name="description"
               className={

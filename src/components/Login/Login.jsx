@@ -83,10 +83,10 @@ const Login = () => {
   } = formik;
 
   return (
-    <div className="Form_container">
-      <form onSubmit={formik.handleSubmit}>
+    <section className="initSection">
+      <form className="form login" onSubmit={formik.handleSubmit}>
         <h3>Iniciar Sesión</h3>
-        <div>
+        <div className="inputs-container_div">
           <label htmlFor="userName">Nombre de usuario</label>
           <input
             type="userName"
@@ -101,7 +101,7 @@ const Login = () => {
         {errors.userName && touched.userName && (
           <span className="error-message">{errors.userName}</span>
         )}
-        <div>
+        <div className="inputs-container_div">
           <label htmlFor="password">Password</label>
           <input
             type="password"
@@ -117,13 +117,17 @@ const Login = () => {
           <span className="error-message">{errors.password}</span>
         )}
         <div>
-          <button type="submit">Enviar</button>
+          <button className="button primary" type="submit">
+            Enviar
+          </button>
         </div>
         <div>
-          <Link to="/signup">Creá una cuenta!</Link>
+          <Link className="button terciary" to="/signup">
+            Creá una cuenta!
+          </Link>
         </div>
       </form>
-    </div>
+    </section>
   );
 };
 

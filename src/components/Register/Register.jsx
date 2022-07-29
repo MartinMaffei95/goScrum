@@ -90,10 +90,10 @@ const Register = () => {
     setFieldValue,
   } = formik;
   return (
-    <div className="Form_container">
-      <form onSubmit={formik.handleSubmit}>
+    <section className="initSection">
+      <form className="form" onSubmit={formik.handleSubmit}>
         <h3>Creá tu usuario</h3>
-        <div>
+        <div className="inputs-container_div">
           <label htmlFor="userName">Nombre de usuario</label>
           <input
             type="text"
@@ -108,7 +108,7 @@ const Register = () => {
         {errors.userName && touched.userName && (
           <span className="error-message">{errors.userName}</span>
         )}
-        <div>
+        <div className="inputs-container_div">
           <label htmlFor="password">Password</label>
           <input
             type="password"
@@ -123,7 +123,7 @@ const Register = () => {
         {errors.password && touched.password && (
           <span className="error-message">{errors.password}</span>
         )}
-        <div>
+        <div className="inputs-container_div">
           <label htmlFor="email">Email</label>
           <input
             type="email"
@@ -152,7 +152,7 @@ const Register = () => {
           label="Ya tienes un equipo creado? Unete!"
         />
         {values.switch && (
-          <div>
+          <div className="inputs-container_div">
             <label htmlFor="teamID">Introduce el identificador de equipo</label>
             <input
               type="text"
@@ -168,7 +168,7 @@ const Register = () => {
         {errors.teamID && touched.teamID && (
           <span className="error-message">{errors.teamID}</span>
         )}
-        <div>
+        <div className="inputs-container_div">
           <label htmlFor="role">Rol</label>
           <select
             name="role"
@@ -188,7 +188,7 @@ const Register = () => {
         {errors.role && touched.role && (
           <span className="error-message">{errors.role}</span>
         )}
-        <div>
+        <div className="inputs-container_div">
           <label htmlFor="continent">Continente</label>
           <select
             name="continent"
@@ -211,7 +211,7 @@ const Register = () => {
           <span className="error-message">{errors.continent}</span>
         )}
         {values.continent === 'America' && (
-          <div>
+          <div className="inputs-container_div">
             <label htmlFor="region">Region</label>
             <select
               name="region"
@@ -233,14 +233,19 @@ const Register = () => {
         {errors.region && touched.region && (
           <span className="error-message">{errors.region}</span>
         )}
-        <div>
-          <button type="submit">Crear usuario</button>
+        <div className="inputs-container_div">
+          <button className="button primary" type="submit">
+            Crear usuario
+          </button>
         </div>
-        <div>
-          <Link to={'/login'}> Inicia sesión</Link>
+        <div className="inputs-container_div">
+          <Link className="button terciary" to={'/login'}>
+            {' '}
+            Inicia sesión
+          </Link>
         </div>
       </form>
-    </div>
+    </section>
   );
 };
 

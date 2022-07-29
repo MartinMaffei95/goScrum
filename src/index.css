@@ -5,17 +5,24 @@
 }
 
 :root {
-  --bgColor: #c1c0c0;
-  --borderLine: 2px solid grey;
+  --bgColor: #f9f8f5;
+  --borderLine: 2px solid var(--primaryColor);
   --grayColor: #5b5a59;
 
   --primaryColor: #ff9500;
   --primaryColorAccent: #ff6200;
   --terciaryColorSoft: #fcc778;
+  --cardColor: #fcc77849; /*--terciaryColorSoft but 50% opacity*/
 
   --borderLine_button: 1px solid var(--headerBgColor);
 
   --paddingInline: 1rem;
+  --paddingInlineCard: 0.5rem;
+  /* Text Sizes*/
+  --titleSize: 2rem;
+  --subtitleSize: 1.4rem;
+  --textSize: 0.9rem;
+  --tinyText: 0.7rem;
 }
 
 /* GENERAL STYLES --------------------------------*/
@@ -43,13 +50,14 @@ body {
   padding: 0.25rem 1rem;
   border: var(--borderLine_button);
   border-radius: 5px;
-  color: #fff;
+  color: var(--bgColor);
 }
 
 .button.secondary {
   background: none;
+  color: var(--primaryColorAccent);
   padding: 0.25rem 1rem;
-  border: var(--borderLine_button);
+  border: var(--primaryColorAccent) solid 2px;
   border-radius: 5px;
 }
 
@@ -68,6 +76,10 @@ body {
   color: red;
 }
 
+main {
+  background-color: var(--bgColor);
+}
+
 /*   LOADING ANIMATION STYLE*/
 .loadingScreen {
   background-color: rgba(0, 0, 0, 0.863);
@@ -84,7 +96,6 @@ body {
 
 .loadingAnimationText {
   color: #fff;
-  font-size: 3rem;
   animation: loading 2s infinite ease-in-out;
 }
 
@@ -108,17 +119,15 @@ header {
   padding-inline: var(--paddingInline);
   z-index: 100;
   position: relative;
-
-  border-bottom: var(--borderLine);
 }
 
-header span {
+header .logo {
   font-size: 2rem;
   font-weight: 600;
   letter-spacing: -2px;
 }
 
-span span {
+.logo.accent {
   font-size: 3rem;
   font-weight: 900;
 }
@@ -148,9 +157,8 @@ span span {
   top: 100%;
   overflow: hidden;
   transition: 0.5s;
-  border-bottom: var(--borderLine);
 
-  font-size: 1rem;
+  font-size: var(--textSize);
   text-align: center;
   list-style: none;
 }
@@ -184,7 +192,7 @@ span span {
   position: absolute;
   display: flex;
   right: 0;
-  font-size: 0.7rem;
+  font-size: var(--tinyText);
   font-weight: lighter;
   color: var(--grayColor);
   text-decoration-color: var(--grayColor);
@@ -201,18 +209,33 @@ span span {
   overflow: hidden;
 }
 
+.filterContainer {
+  border: var(--borderLine);
+  margin-block: var(--paddingInline);
+  position: relative;
+}
+
+.filterContainer label {
+  background-color: var(--bgColor);
+  padding-left: var(--paddingInlineCard);
+  font-size: var(--tinyText);
+}
+
+.filterContainer select {
+  background-color: green;
+}
 .filters.onScreen {
   max-height: 100%;
 }
 
 .filters input,
 .filters select {
-  width: 90vw;
+  width: 100%;
   background: none;
   margin-block: 0.25rem;
-  padding: 0.2rem;
+  padding-inline: var(--paddingInlineCard);
   border-radius: 8px;
-  border: solid 1px var(--primaryColorAccent);
+  border: none;
 }
 
 .formControl {
@@ -273,6 +296,8 @@ span span {
 
 .inputs-container_div {
   margin-block: 0.2rem;
+  display: flex;
+  flex-direction: column;
 }
 
 .inputs-container_div input,
@@ -280,9 +305,13 @@ span span {
 .inputs-container_div textarea {
   width: 90vw;
   background: none;
-  padding: 0.2rem;
+  padding-inline: var(--paddingInlineCard);
   border-radius: 8px;
-  border: solid 1px var(--primaryColorAccent);
+  border: none;
+}
+
+.inputs-container_div textarea {
+  height: 15vw;
 }
 
 .create_Task .button {
@@ -293,14 +322,41 @@ span span {
 
 /* TASK STYLES*/
 .card {
-  background-color: beige;
+  background-color: var(--cardColor);
   position: relative;
   display: flex;
   flex-direction: column;
   row-gap: 0.2rem;
   border-radius: 15px;
-  padding: 2%;
+  padding: var(--paddingInlineCard);
   margin-block: 0.5rem;
+}
+
+.card .title {
+  font-size: var(--subtitleSize);
+}
+
+.card .description {
+  overflow-wrap: break-word;
+  font-size: var(--textSize);
+}
+
+.card .moreInfo {
+  display: flex;
+  justify-content: space-between;
+
+  border-top: solid var(--grayColor) 1px;
+  margin-block: 0.5rem;
+  padding-top: 0.25rem;
+}
+
+.card .date {
+  font-size: var(--tinyText);
+  color: var(--grayColor);
+}
+
+.card .userName {
+  font-size: var(--tinyText);
 }
 
 .card_buttons {
@@ -310,12 +366,11 @@ span span {
 
 .card_close {
   position: absolute;
-  right: 5%;
-  top: 5%;
-  background-color: rgb(219, 58, 13);
-  color: aliceblue;
+  right: var(--paddingInlineCard);
+  top: var(--paddingInlineCard);
+  background-color: rgb(255, 55, 0);
+  color: var(--bgColor);
   border-radius: 5px;
-  font-size: 1rem;
   height: 1.5rem;
   width: 1.5rem;
   display: flex;
@@ -328,18 +383,15 @@ span span {
   background-color: rgb(113, 33, 11);
 }
 
-.description {
-  overflow-wrap: break-word;
-}
-
 .list_group {
   display: none;
 }
 
-/* BUTTONS DINAMIC */
+/* BUTTONS of CARD = DINAMIC */
 
 .card_buttons .button {
   color: BLACK;
+  font-size: var(--tinyText);
 }
 .button.HIGH {
   background-color: red;
@@ -364,22 +416,6 @@ span span {
   background-color: greenyellow;
 }
 
-@media screen and (min-width: 768px) {
-  .list.phone {
-    display: none;
-  }
-
-  .list_group {
-    display: flex;
-    flex-direction: row;
-    margin: 0;
-  }
-
-  .list_group .list {
-    width: 32vw;
-  }
-}
-
 .skeleton {
   /* margin: 2px; */
 }
@@ -398,18 +434,164 @@ span span {
   color: red;
 }
 
+.form button {
+  width: 90vw;
+  margin-top: 4%;
+}
+
+/* LOGIN  --------------------------------*/
+
+.initSection {
+  height: 100vh;
+  width: 100vw;
+  background-color: var(--bgColor);
+  padding-inline: var(--paddingInline);
+
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+}
+
+.form.login {
+  /* display: flex;
+  flex-direction: column; */
+}
+
 @media screen and (max-width: 360px) {
   /*POCKET CELLPHONE - menos de 360px*/
 }
 
-@media screen and (min-width: 769px) {
+@media screen and (min-width: 768px) {
+  :root {
+    /* Text Sizes*/
+    --titleSize: 2rem;
+    --subtitleSize: 1.3rem;
+    --textSize: 0.8rem;
+    --tinyText: 0.6rem;
+  }
+
   /*TABLET a partir de 769px*/
-  .Form_container > form {
-    width: 400px;
-    height: 300px;
+  .list.phone {
+    display: none;
+  }
+
+  .list_group {
+    display: flex;
+    flex-direction: row;
+    margin: 0;
+    gap: 1rem;
+  }
+
+  .list_group .list {
+    width: 30vw;
+  }
+
+  .list_desk h3 {
+    text-align: center;
+  }
+
+  .filters {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--paddingInlineCard);
+  }
+  .filters .search {
+    width: 80vw;
+  }
+
+  .formControl {
+    display: flex;
+    width: 100%;
+  }
+  .radio-container {
+    display: flex;
+    justify-content: space-around;
   }
 }
 
 @media screen and (min-width: 1025px) {
   /*DESKTOP a partir de 1025px*/
+
+  main {
+    display: flex;
+    flex-direction: row;
+  }
+
+  .newTaskSection {
+    display: flex;
+    flex-direction: column;
+    width: 25vw;
+    border-right: var(--borderLine);
+  }
+  /* Button hidden and form onScreen ***************************/
+  .newTaskSection .button {
+    /* Button hidden and form onScreen */
+    align-self: center;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .newTaskSection .close_Form {
+    opacity: 0;
+    pointer-events: none;
+  }
+  .form.create_Task {
+    /* Button hidden and form onScreen */
+    max-height: fit-content;
+  }
+  /* ***************** */
+  .newTask {
+    width: 15vw;
+    margin: 0;
+    margin-block: 2vh;
+    padding: 0;
+  }
+
+  .create_Task {
+    position: relative;
+    padding-inline: var(--paddingInlineCard);
+  }
+
+  .create_Task .title_form {
+    width: 100%;
+  }
+
+  .create_Task .inputs-container {
+    width: 100%;
+  }
+
+  .create_Task .inputs-container_div input,
+  .create_Task .inputs-container_div select,
+  .create_Task .inputs-container_div textarea {
+    width: 100%;
+  }
+  .create_Task .inputs-container_div textarea {
+    height: 20vh;
+  }
+
+  .create_Task .button {
+    width: 100%;
+  }
+  .wrapper_list {
+    width: 75vw;
+  }
+
+  .list_group {
+    justify-content: space-evenly;
+    position: relative;
+  }
+  .list_group .list {
+    width: 23vw;
+    /* margin: 0; */
+  }
+
+  .filters .search {
+    width: 100%;
+  }
+
+  .card {
+    /* background-color: #000; */
+    margin: var(--paddingInlineCard);
+  }
 }

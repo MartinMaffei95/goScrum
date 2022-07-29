@@ -37,9 +37,7 @@ const Task = ({
       >
         <AiOutlineDelete />
       </div>
-      <h3>{title}</h3>
-      <h6>{datetime}</h6>
-      <h5>{userName}</h5>
+      <h3 className="title">{title}</h3>
       <div className="card_buttons">
         <button
           type="button"
@@ -66,6 +64,7 @@ const Task = ({
             onClick={() => {
               setShowMore(false);
             }}
+            className="button terciary"
           >
             Ver Menos
           </button>
@@ -76,10 +75,15 @@ const Task = ({
           onClick={() => {
             setShowMore(true);
           }}
+          className="button terciary"
         >
           Ver Mas
         </button>
       )}
+      <div className="moreInfo">
+        <h5 className="userName">{userName}</h5>
+        <h6 className="date">{datetime}</h6>
+      </div>
     </div>
   );
 };
