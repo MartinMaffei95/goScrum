@@ -6,7 +6,7 @@ import Swal from 'sweetalert2';
 
 const Login = () => {
   const navigate = useNavigate();
-  const { REACT_APP_API_URL } = process.env;
+  // const { REACT_APP_API_URL } = process.env;
 
   const initialValues = {
     userName: '',
@@ -15,7 +15,7 @@ const Login = () => {
 
   const onSubmit = () => {
     const { userName, password } = values;
-    fetch(`${REACT_APP_API_URL}auth/login`, {
+    fetch(`${process.env.REACT_APP_API_URL}auth/login`, {
       headers: { 'Content-Type': 'application/json' },
       method: 'POST',
       body: JSON.stringify({
