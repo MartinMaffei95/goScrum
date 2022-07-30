@@ -33,26 +33,30 @@ const Login = () => {
             navigate('/', { replace: true });
             break;
           case 'UNAUTHORIZED':
+            /*Bad password*/
             Swal.fire({
-              title: 'Unauthorized',
-              text: 'Unauthorized',
+              icon: 'error',
+              title: 'CONTRASEÑA INCORRECTA',
+              text: 'El usuario no existe.',
               confirmButtonText: 'Aceptar',
+              confirmButtonColor: '#ff6200',
               width: '300px',
               timer: 5000,
               timerProgressBar: true,
             });
             break;
           case 'NOT FOUND':
+            /*User no exist*/
             Swal.fire({
-              title: 'NOT FOUND',
-              text: 'NOT FOUND',
+              icon: 'error',
+              title: 'USUARIO INCORRECTO',
+              text: 'El usuario no existe.',
               confirmButtonText: 'Aceptar',
+              confirmButtonColor: '#ff6200',
               width: '300px',
               timer: 5000,
               timerProgressBar: true,
             });
-            break;
-          default:
             break;
         }
       });
