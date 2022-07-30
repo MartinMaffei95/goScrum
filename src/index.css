@@ -1,13 +1,9 @@
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Roboto+Condensed:wght@300;700&display=swap');
 
 :root {
   --bgColor: #f9f8f5;
   --borderLine: 2px solid var(--primaryColor);
-  --grayColor: #5b5a59;
+  --grayColor: #333333;
 
   --primaryColor: #ff9500;
   --primaryColorAccent: #ff6200;
@@ -18,11 +14,23 @@
 
   --paddingInline: 1rem;
   --paddingInlineCard: 0.5rem;
+
   /* Text Sizes*/
-  --titleSize: 2rem;
+  --titleSize: 1.8rem;
   --subtitleSize: 1.4rem;
   --textSize: 0.9rem;
   --tinyText: 0.7rem;
+  /*Font Familys*/
+
+  --fFamilyPrimary: 'Roboto Condensed', sans-serif;
+  --fFamilySecondary: 'Bebas Neue', cursive;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: var(--fFamilyPrimary);
 }
 
 /* GENERAL STYLES --------------------------------*/
@@ -30,26 +38,25 @@
 body {
   margin: 0;
   padding: 0;
-  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande',
-    'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 
 .button {
   background: none;
   padding: 0.25rem 1rem;
   border: none;
-  border-radius: 5px;
+  /* border-radius: 5px; */
 
   cursor: pointer;
-  letter-spacing: 0.04rem;
-  font-weight: 700;
+  letter-spacing: 0.06rem;
+  font-family: var(--fFamilySecondary);
+  font-size: var(--subtitleSize);
 }
 
 .button.primary {
   background: var(--primaryColorAccent);
   padding: 0.25rem 1rem;
   border: var(--borderLine_button);
-  border-radius: 5px;
+  /* border-radius: 5px; */
   color: var(--bgColor);
 }
 
@@ -58,7 +65,7 @@ body {
   color: var(--primaryColorAccent);
   padding: 0.25rem 1rem;
   border: var(--primaryColorAccent) solid 2px;
-  border-radius: 5px;
+  /* border-radius: 5px; */
 }
 
 .button.terciary {
@@ -111,14 +118,16 @@ main {
 
 /* HEADER STYLES --------------------------------*/
 header {
-  background-color: var(--primaryColor);
   display: flex;
   justify-content: space-between;
   align-items: center;
   gap: 5%;
   padding-inline: var(--paddingInline);
+  color: var(--primaryColorAccent);
+  border-bottom: var(--borderLine);
   z-index: 100;
   position: relative;
+  height: 4rem;
 }
 
 header .logo {
@@ -150,7 +159,8 @@ header .logo {
 
 .userMenu {
   position: absolute;
-  background-color: var(--terciaryColorSoft);
+  background-color: var(--bgColor);
+  border-bottom: var(--borderLine);
   width: 100vw;
   max-height: 0;
   left: 0;
@@ -171,6 +181,31 @@ header .logo {
 
 .userMenu li {
   margin-block: 0.5rem;
+  color: #000;
+}
+
+.tokenContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+li span:nth-child(1) {
+  font-weight: 600;
+}
+
+li span:nth-child(2) {
+  color: var(--grayColor);
+}
+
+.button.copyButton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 25px;
+  height: 2.5rem;
+  width: 2.5rem;
+  padding: 0;
 }
 
 /* TASKS SCREEN --------------------------------*/
@@ -210,7 +245,8 @@ header .logo {
 }
 
 .filterContainer {
-  border: var(--borderLine);
+  /* border: var(--borderLine); */
+  background: #fff;
   margin-block: var(--paddingInline);
   position: relative;
 }
@@ -219,10 +255,10 @@ header .logo {
   background-color: var(--bgColor);
   padding-left: var(--paddingInlineCard);
   font-size: var(--tinyText);
+  background: none;
 }
 
 .filterContainer select {
-  background-color: green;
 }
 .filters.onScreen {
   max-height: 100%;
@@ -290,7 +326,7 @@ header .logo {
 
 .form.create_Task.onScreen {
   max-height: fit-content;
-  margin-top: 2vh;
+  padding-top: 2vh;
   transition: max-height 0.5s;
 }
 
@@ -306,7 +342,7 @@ header .logo {
   width: 90vw;
   background: none;
   padding-inline: var(--paddingInlineCard);
-  border-radius: 8px;
+  /* border-radius: 8px; */
   border: none;
 }
 
@@ -327,7 +363,7 @@ header .logo {
   display: flex;
   flex-direction: column;
   row-gap: 0.2rem;
-  border-radius: 15px;
+  /* border-radius: 15px; */
   padding: var(--paddingInlineCard);
   margin-block: 0.5rem;
 }
@@ -391,7 +427,14 @@ header .logo {
 
 .card_buttons .button {
   color: BLACK;
-  font-size: var(--tinyText);
+  font-size: var(--textSize);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5%;
+  padding: 0;
+  height: 1.5rem;
+  width: 6rem;
 }
 .button.HIGH {
   background-color: red;
@@ -443,18 +486,16 @@ header .logo {
 
 .initSection {
   height: 100vh;
-  width: 100vw;
+  /* width: 100vw; */
   background-color: var(--bgColor);
   padding-inline: var(--paddingInline);
 
   display: flex;
   flex-direction: row;
-  justify-content: flex-end;
+  justify-content: center;
 }
 
 .form.login {
-  /* display: flex;
-  flex-direction: column; */
 }
 
 @media screen and (max-width: 360px) {
@@ -464,8 +505,8 @@ header .logo {
 @media screen and (min-width: 768px) {
   :root {
     /* Text Sizes*/
-    --titleSize: 2rem;
-    --subtitleSize: 1.3rem;
+    --titleSize: 1.6rem;
+    --subtitleSize: 1.1rem;
     --textSize: 0.8rem;
     --tinyText: 0.6rem;
   }
@@ -508,6 +549,24 @@ header .logo {
     display: flex;
     justify-content: space-around;
   }
+
+  .form.login {
+    width: 60vw;
+  }
+
+  .initSection .inputs-container_div input,
+  .initSection .inputs-container_div select,
+  .initSection .inputs-container_div textarea {
+    width: 60vw;
+    background: none;
+    padding-inline: var(--paddingInlineCard);
+    /* border-radius: 8px; */
+    border: none;
+  }
+
+  .initSection .button {
+    width: 60vw;
+  }
 }
 
 @media screen and (min-width: 1025px) {
@@ -516,13 +575,20 @@ header .logo {
   main {
     display: flex;
     flex-direction: row;
+    height: calc(100% - 4rem);
+  }
+
+  .userMenu {
+    width: 35vw;
+    left: initial;
+    right: 0;
   }
 
   .newTaskSection {
     display: flex;
     flex-direction: column;
     width: 25vw;
-    border-right: var(--borderLine);
+    /* border-right: var(--borderLine); */
   }
   /* Button hidden and form onScreen ***************************/
   .newTaskSection .button {
@@ -573,6 +639,11 @@ header .logo {
   .create_Task .button {
     width: 100%;
   }
+
+  .create_Task .createButton {
+    opacity: 1;
+  }
+
   .wrapper_list {
     width: 75vw;
   }
@@ -584,6 +655,11 @@ header .logo {
   .list_group .list {
     width: 23vw;
     /* margin: 0; */
+  }
+
+  .list_group .desk.title {
+    padding-inline: var(--paddingInline);
+    font-size: var(--titleSize);
   }
 
   .filters .search {

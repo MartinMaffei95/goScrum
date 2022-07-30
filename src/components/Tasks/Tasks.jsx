@@ -259,7 +259,7 @@ const Tasks = () => {
           ) : (
             <div className="list_group">
               <div className="list desk">
-                <h3>Nuevas</h3>
+                <h3 className="desk title">Nuevas</h3>
                 {isLoading ? (
                   <SkeletonTheme
                     baseColor="#898989"
@@ -274,7 +274,7 @@ const Tasks = () => {
                 )}
               </div>
               <div className="list desk">
-                <h3>En proceso</h3>
+                <h3 className="desk title">En proceso</h3>
                 {isLoading ? (
                   <SkeletonTheme
                     baseColor="#898989"
@@ -289,7 +289,7 @@ const Tasks = () => {
                 )}
               </div>
               <div className="list desk">
-                <h3>Terminadas</h3>
+                <h3 className="desk title">Terminadas</h3>
                 {isLoading ? (
                   <SkeletonTheme
                     baseColor="#898989"

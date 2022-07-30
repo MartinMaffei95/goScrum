@@ -58,10 +58,10 @@ const Header = () => {
             <GoTriangleDown className={`triangle ${viewOn && 'onScreen'}`} />
           </div>
           <ul className={`userMenu  ${viewOn ? 'onScreen' : ''}`}>
-            <li>
-              Token: {teamID && teamID}
+            <li className="tokenContainer">
+              <span>Team ID:</span> <span>{teamID && teamID}</span>
               <button
-                className="button primary"
+                className="button terciary copyButton"
                 onClick={(e) => {
                   handlecopy(e);
                 }}

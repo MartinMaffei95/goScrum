@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { AiOutlineDelete } from 'react-icons/ai';
+import { GrStatusGood, GrCircleAlert, GrTools, GrAlert } from 'react-icons/gr';
 const Task = ({
   deleteCard,
   editCardStatus,
@@ -27,6 +28,17 @@ const Task = ({
 
   const datetime = new Date(createdAt).toLocaleString() + ' hs.';
 
+  const statusIcon = (stat) => {
+    switch (stat) {
+      case 'NEW':
+        return <GrCircleAlert />;
+      case 'IN PROGRESS':
+        return <GrTools />;
+      case 'FINISHED':
+        return <GrStatusGood />;
+    }
+  };
+
   return (
     <div className="card">
       <div
@@ -41,14 +53,19 @@ const Task = ({
       <div className="card_buttons">
         <button
           type="button"
-          className={`button primary ${status}`}
+          className={`button primary status ${status}`}
           onClick={() => {
             editCardStatus(data);
           }}
         >
+          {statusIcon(status)}
           {status}
         </button>
-        <button type="button" className={`button primary ${importance}`}>
+        <button
+          type="button"
+          className={`button primary importance ${importance}`}
+        >
+          {<GrAlert />}
           {importance}
         </button>
       </div>
