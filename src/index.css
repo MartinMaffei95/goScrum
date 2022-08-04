@@ -18,8 +18,8 @@
   /* Text Sizes*/
   --titleSize: 1.8rem;
   --subtitleSize: 1.4rem;
-  --textSize: 0.9rem;
-  --tinyText: 0.7rem;
+  --textSize: 1rem;
+  --tinyText: 0.8rem;
   /*Font Familys*/
 
   --fFamilyPrimary: 'Roboto Condensed', sans-serif;
@@ -92,7 +92,7 @@ main {
   background-color: rgba(0, 0, 0, 0.863);
   height: 100vh;
   width: 100vw;
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   z-index: 100;
@@ -272,6 +272,7 @@ li span:nth-child(2) {
   padding-inline: var(--paddingInlineCard);
   border-radius: 8px;
   border: none;
+  background-color: red;
 }
 
 .formControl {
@@ -334,14 +335,17 @@ li span:nth-child(2) {
   margin-block: 0.2rem;
   display: flex;
   flex-direction: column;
+  background: #fff;
+  padding-left: var(--paddingInlineCard);
 }
 
 .inputs-container_div input,
 .inputs-container_div select,
 .inputs-container_div textarea {
   width: 90vw;
+  height: 1.5rem;
   background: none;
-  padding-inline: var(--paddingInlineCard);
+  /* padding-inline: var(--paddingInlineCard); */
   /* border-radius: 8px; */
   border: none;
 }
@@ -426,37 +430,75 @@ li span:nth-child(2) {
 /* BUTTONS of CARD = DINAMIC */
 
 .card_buttons .button {
+  /*Color icon & buttons*/
+  --highAlertColor: red;
+  --mediumAlertColor: #ff8306;
+  --lowAlertColor: rgb(89, 146, 4);
+  /***************/
   color: BLACK;
   font-size: var(--textSize);
   display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
   gap: 5%;
   padding: 0;
   height: 1.5rem;
-  width: 6rem;
+  width: 6.5rem;
 }
+/*IMPORTANCE COLORS*/
 .button.HIGH {
-  background-color: red;
+  background: none;
+  color: var(--highAlertColor);
+  border: var(--highAlertColor) solid 2px;
 }
+.button.HIGH .icon {
+  color: var(--highAlertColor);
+}
+
 .button.MEDIUM {
-  background-color: yellow;
+  background: none;
+  color: var(--mediumAlertColor);
+  border: var(--mediumAlertColor) solid 2px;
+}
+.button.MEDIUM .icon {
+  color: var(--mediumAlertColor);
 }
 
 .button.LOW {
-  background-color: greenyellow;
+  background: none;
+  color: var(--lowAlertColor);
+  border: var(--lowAlertColor) solid 2px;
+}
+.button.LOW .icon {
+  color: var(--lowAlertColor);
 }
 
+/*STATUS COLORS*/
 .button.NEW {
-  background-color: red;
+  background: none;
+  color: var(--highAlertColor);
+  border: var(--highAlertColor) solid 2px;
+}
+.button.NEW .icon {
+  color: var(--highAlertColor);
 }
 
 .button.PROGRESS {
-  background-color: yellow;
+  background: none;
+  color: var(--mediumAlertColor);
+  border: var(--mediumAlertColor) solid 2px;
+}
+.button.PROGRESS .icon {
+  color: var(--mediumAlertColor);
 }
 
 .button.FINISHED {
-  background-color: greenyellow;
+  background: none;
+  color: var(--lowAlertColor);
+  border: var(--lowAlertColor) solid 2px;
+}
+.button.FINISHED .icon {
+  color: var(--lowAlertColor);
 }
 
 .skeleton {
@@ -505,10 +547,16 @@ li span:nth-child(2) {
 @media screen and (min-width: 768px) {
   :root {
     /* Text Sizes*/
-    --titleSize: 1.6rem;
+    /* --titleSize: 1.6rem;
     --subtitleSize: 1.1rem;
     --textSize: 0.8rem;
-    --tinyText: 0.6rem;
+    --tinyText: 0.6rem; */
+
+    /* Text Sizes*/
+    /* --titleSize: 1.8rem;
+  --subtitleSize: 1.4rem;
+  --textSize: 1rem;
+  --tinyText: 0.8rem; */
   }
 
   /*TABLET a partir de 769px*/
@@ -554,16 +602,6 @@ li span:nth-child(2) {
     width: 60vw;
   }
 
-  .initSection .inputs-container_div input,
-  .initSection .inputs-container_div select,
-  .initSection .inputs-container_div textarea {
-    width: 60vw;
-    background: none;
-    padding-inline: var(--paddingInlineCard);
-    /* border-radius: 8px; */
-    border: none;
-  }
-
   .initSection .button {
     width: 60vw;
   }
@@ -572,10 +610,26 @@ li span:nth-child(2) {
 @media screen and (min-width: 1025px) {
   /*DESKTOP a partir de 1025px*/
 
+  :root {
+    /* Text Sizes*/
+    /* --titleSize: 1.6rem;
+    --subtitleSize: 1.2rem;
+    --textSize: 1rem;
+    --tinyText: 0.8rem; */
+  }
+
+  header {
+    position: fixed;
+    width: 100%;
+    background-color: var(--bgColor);
+  }
+
   main {
     display: flex;
     flex-direction: row;
-    height: calc(100% - 4rem);
+    padding-top: 4rem;
+    min-height: 100vh;
+    max-height: 100%;
   }
 
   .userMenu {
@@ -588,6 +642,7 @@ li span:nth-child(2) {
     display: flex;
     flex-direction: column;
     width: 25vw;
+
     /* border-right: var(--borderLine); */
   }
   /* Button hidden and form onScreen ***************************/
@@ -598,6 +653,10 @@ li span:nth-child(2) {
     pointer-events: none;
   }
 
+  .newTaskSection .createButton {
+    pointer-events: all;
+  }
+
   .newTaskSection .close_Form {
     opacity: 0;
     pointer-events: none;
@@ -606,6 +665,7 @@ li span:nth-child(2) {
     /* Button hidden and form onScreen */
     max-height: fit-content;
   }
+
   /* ***************** */
   .newTask {
     width: 15vw;
@@ -634,6 +694,7 @@ li span:nth-child(2) {
   }
   .create_Task .inputs-container_div textarea {
     height: 20vh;
+    resize: none;
   }
 
   .create_Task .button {
@@ -646,6 +707,7 @@ li span:nth-child(2) {
 
   .wrapper_list {
     width: 75vw;
+    /* background-color: red; */
   }
 
   .list_group {

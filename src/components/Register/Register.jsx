@@ -10,6 +10,7 @@ const Register = () => {
   const [data, setData] = useState();
   const navigate = useNavigate();
   const { REACT_APP_API_URL } = process.env;
+
   useEffect(() => {
     fetch(`${REACT_APP_API_URL}auth/data`)
       .then((res) => res.json())
@@ -89,6 +90,7 @@ const Register = () => {
     handleBlur,
     setFieldValue,
   } = formik;
+
   return (
     <section className="initSection">
       <form className="form" onSubmit={formik.handleSubmit}>
@@ -103,6 +105,7 @@ const Register = () => {
             onChange={handleChange}
             onBlur={handleBlur}
             value={values.userName}
+            placeholder="MiUsuario"
           />
         </div>
         {errors.userName && touched.userName && (
@@ -118,6 +121,7 @@ const Register = () => {
             onChange={handleChange}
             onBlur={handleBlur}
             value={values.password}
+            placeholder="MiPassword123"
           />
         </div>
         {errors.password && touched.password && (
@@ -133,6 +137,7 @@ const Register = () => {
             onChange={handleChange}
             onBlur={handleBlur}
             value={values.email}
+            placeholder="email@email.com"
           />
         </div>
         {errors.email && touched.email && (
@@ -146,7 +151,7 @@ const Register = () => {
                 formik.setFieldValue('switch', !formik.values.switch);
               }}
               name="switch"
-              color="secondary"
+              color="warning"
             />
           }
           label="Ya tienes un equipo creado? Unete!"
@@ -161,6 +166,7 @@ const Register = () => {
               onChange={formik.handleChange}
               onBlur={handleBlur}
               value={values.teamID}
+              placeholder="TEAM ID"
             />
           </div>
         )}
@@ -238,9 +244,8 @@ const Register = () => {
             Crear usuario
           </button>
         </div>
-        <div className="inputs-container_div">
+        <div className="">
           <Link className="button terciary" to={'/login'}>
-            {' '}
             Inicia sesión
           </Link>
         </div>

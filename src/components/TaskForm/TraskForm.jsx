@@ -62,7 +62,7 @@ const TaskForm = () => {
         setViewOn(false);
         resetForm();
         //TOAST
-        toast('Tarea Creada!');
+        toast.success('Tarea Creada!');
       });
   };
   const formik = useFormik({
@@ -161,6 +161,7 @@ const TaskForm = () => {
           <div className="inputs-container_div filterContainer">
             <label htmlFor="description"> Coloca una descripcion</label>
             <textarea
+              resize="none"
               name="description"
               className={
                 errors.description && touched.description ? 'error' : ''

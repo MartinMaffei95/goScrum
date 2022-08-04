@@ -21,12 +21,12 @@ import './GlobalRadio.css';
 import { useSelector, useDispatch } from 'react-redux';
 import { orange } from '@mui/material/colors';
 import { GoTriangleDown } from 'react-icons/go';
+import { useTasks } from '../../Hooks/useTasks';
 
 const Tasks = () => {
   const [viewOn, setViewOn] = useState(false);
   const { isPhone } = useResize();
-  const [list, setList] = useState(null);
-  const [renderList, setRenderList] = useState(null);
+  const { list, renderList, setRenderList } = useTasks();
   const [taskFromWho, setTaskFromWho] = useState('ALL');
   const [filters, setFilters] = useState({
     status: 'ALL',
@@ -40,21 +40,10 @@ const Tasks = () => {
 
   const handleEditCardStatus = (data) => dispatch(editTaskStatus(data));
   const handleDelete = (id) => dispatch(deleteTask(id));
-  const renderAllCards = () => {
-    return renderList?.map((data, index) => (
-      <Task
-        key={data._id}
-        data={data}
-        deleteCard={handleDelete}
-        editCardStatus={handleEditCardStatus}
-      />
-    ));
-  };
 
-  const renderCards = (status) => {
-    return renderList
-      ?.filter((data) => data.status === status)
-      .map((data, index) => (
+  const renderCards = (status = null) => {
+    if (status === null) {
+      return renderList?.map((data) => (
         <Task
           key={data._id}
           data={data}
@@ -62,6 +51,18 @@ const Tasks = () => {
           editCardStatus={handleEditCardStatus}
         />
       ));
+    } else {
+      return renderList
+        ?.filter((data) => data.status === status)
+        .map((data) => (
+          <Task
+            key={data._id}
+            data={data}
+            deleteCard={handleDelete}
+            editCardStatus={handleEditCardStatus}
+          />
+        ));
+    }
   };
 
   useEffect(() => {
@@ -115,20 +116,15 @@ const Tasks = () => {
   const { loading, error, tasks } = useSelector((state) => {
     return state.tasksReducer;
   });
+
   useEffect(() => {
     dispatch(getTasks(taskFromWho === 'ME' ? '/me' : ''));
   }, [taskFromWho, dispatch]);
 
-  useEffect(() => {
-    if (tasks?.length) {
-      setList(tasks);
-      setRenderList(tasks);
-    }
-  }, [tasks]);
-
   const handleView = () => {
     !viewOn ? setViewOn(true) : setViewOn(false);
   };
+
   return (
     <>
       {loading && (
@@ -251,7 +247,7 @@ const Tasks = () => {
                 <Skeleton className="skeleton" count={4} />
               </SkeletonTheme>
             ) : (
-              <div className="list phone">{renderAllCards()}</div>
+              <div className="list phone">{renderCards()}</div>
             )
           ) : // Render Desktop
           !renderList?.length ? (

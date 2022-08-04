@@ -1,6 +1,11 @@
 import { useState } from 'react';
-import { AiOutlineDelete } from 'react-icons/ai';
-import { GrStatusGood, GrCircleAlert, GrTools, GrAlert } from 'react-icons/gr';
+import {
+  AiOutlineDelete,
+  AiOutlineCheckCircle,
+  AiOutlineClockCircle,
+  AiOutlineExclamationCircle,
+} from 'react-icons/ai';
+import { GoAlert } from 'react-icons/go';
 const Task = ({
   deleteCard,
   editCardStatus,
@@ -31,11 +36,11 @@ const Task = ({
   const statusIcon = (stat) => {
     switch (stat) {
       case 'NEW':
-        return <GrCircleAlert />;
+        return <AiOutlineExclamationCircle className="icon" />;
       case 'IN PROGRESS':
-        return <GrTools />;
+        return <AiOutlineClockCircle className="icon" />;
       case 'FINISHED':
-        return <GrStatusGood />;
+        return <AiOutlineCheckCircle className="icon" />;
     }
   };
 
@@ -65,7 +70,7 @@ const Task = ({
           type="button"
           className={`button primary importance ${importance}`}
         >
-          {<GrAlert />}
+          {<GoAlert className="icon" />}
           {importance}
         </button>
       </div>

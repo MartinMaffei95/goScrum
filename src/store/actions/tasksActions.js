@@ -8,22 +8,28 @@ export const tasksFailure = (error) => ({
   payload: error,
 });
 
-export const getTasks = (path) => (dispatch) => {
-  dispatch(tasksRequest());
-  fetch(`${REACT_APP_API_URL}task${path}`, {
-    headers: {
-      contentType: 'application/json',
-      Authorization: 'Bearer ' + localStorage.getItem('token'),
-    },
-  })
-    .then((res) => res.json())
-    .then((data) => {
-      console.log(`${REACT_APP_API_URL}tasks${path}`, data);
-      dispatch(tasksSuccess(data.result));
+export const getTasks = (path) => {
+  // console.log(data);
+
+  return (dispatch) => {
+    dispatch(tasksRequest());
+
+    // dispatch(tasksSuccess(data.result));
+    fetch(`${REACT_APP_API_URL}task${path}`, {
+      headers: {
+        contentType: 'application/json',
+        Authorization: 'Bearer ' + localStorage.getItem('token'),
+      },
     })
-    .catch((error) => {
-      dispatch(tasksFailure(error));
-    });
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(`${REACT_APP_API_URL}task${path}`);
+        dispatch(tasksSuccess(data.result));
+      })
+      .catch((error) => {
+        dispatch(tasksFailure(error));
+      });
+  };
 };
 
 export const deleteTask = (id) => (dispatch) => {
