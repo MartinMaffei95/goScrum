@@ -38,6 +38,7 @@
 body {
   margin: 0;
   padding: 0;
+  background-color: var(--bgColor);
 }
 
 .button {
@@ -128,6 +129,7 @@ header {
   z-index: 100;
   position: relative;
   height: 4rem;
+  background-color: #fff;
 }
 
 header .logo {
@@ -247,15 +249,23 @@ li span:nth-child(2) {
 .filterContainer {
   /* border: var(--borderLine); */
   background: #fff;
+  /* background-color: red; */
   margin-block: var(--paddingInline);
   position: relative;
+  padding-inline: var(--paddingInlineCard);
+  border: rgba(0, 0, 0, 0) 2px solid;
+}
+
+.filterContainer:focus-within {
+  border: #000 2px solid;
 }
 
 .filterContainer label {
   background-color: var(--bgColor);
-  padding-left: var(--paddingInlineCard);
+  /* padding-left: var(--paddingInlineCard); */
   font-size: var(--tinyText);
   background: none;
+  user-select: none;
 }
 
 .filterContainer select {
@@ -269,10 +279,13 @@ li span:nth-child(2) {
   width: 100%;
   background: none;
   margin-block: 0.25rem;
-  padding-inline: var(--paddingInlineCard);
+  /* padding-inline: var(--paddingInlineCard); */
   border-radius: 8px;
   border: none;
-  background-color: red;
+}
+.filters input:focus,
+.filters select:focus {
+  outline: none;
 }
 
 .formControl {
@@ -337,6 +350,11 @@ li span:nth-child(2) {
   flex-direction: column;
   background: #fff;
   padding-left: var(--paddingInlineCard);
+  border: rgba(0, 0, 0, 0) 2px solid;
+}
+
+.inputs-container_div:focus-within {
+  border: #000 2px solid;
 }
 
 .inputs-container_div input,
@@ -351,7 +369,13 @@ li span:nth-child(2) {
 }
 
 .inputs-container_div textarea {
-  height: 15vw;
+  height: 15vh;
+}
+
+.inputs-container_div input:focus,
+.inputs-container_div select:focus,
+.inputs-container_div textarea:focus {
+  outline: none;
 }
 
 .create_Task .button {
@@ -367,7 +391,6 @@ li span:nth-child(2) {
   display: flex;
   flex-direction: column;
   row-gap: 0.2rem;
-  /* border-radius: 15px; */
   padding: var(--paddingInlineCard);
   margin-block: 0.5rem;
 }
@@ -427,6 +450,14 @@ li span:nth-child(2) {
   display: none;
 }
 
+.noTasks {
+  display: flex;
+  justify-content: center;
+  margin-top: 15%;
+  /* height: 100%; */
+  max-height: 100%;
+}
+
 /* BUTTONS of CARD = DINAMIC */
 
 .card_buttons .button {
@@ -438,7 +469,7 @@ li span:nth-child(2) {
   color: BLACK;
   font-size: var(--textSize);
   display: flex;
-  align-items: center;
+  align-items: baseline;
   justify-content: center;
   gap: 5%;
   padding: 0;
@@ -453,6 +484,7 @@ li span:nth-child(2) {
 }
 .button.HIGH .icon {
   color: var(--highAlertColor);
+  align-self: center;
 }
 
 .button.MEDIUM {
@@ -462,6 +494,7 @@ li span:nth-child(2) {
 }
 .button.MEDIUM .icon {
   color: var(--mediumAlertColor);
+  align-self: center;
 }
 
 .button.LOW {
@@ -471,6 +504,7 @@ li span:nth-child(2) {
 }
 .button.LOW .icon {
   color: var(--lowAlertColor);
+  align-self: center;
 }
 
 /*STATUS COLORS*/
@@ -481,6 +515,7 @@ li span:nth-child(2) {
 }
 .button.NEW .icon {
   color: var(--highAlertColor);
+  align-self: center;
 }
 
 .button.PROGRESS {
@@ -490,6 +525,7 @@ li span:nth-child(2) {
 }
 .button.PROGRESS .icon {
   color: var(--mediumAlertColor);
+  align-self: center;
 }
 
 .button.FINISHED {
@@ -499,6 +535,7 @@ li span:nth-child(2) {
 }
 .button.FINISHED .icon {
   color: var(--lowAlertColor);
+  align-self: center;
 }
 
 .skeleton {
@@ -585,6 +622,7 @@ li span:nth-child(2) {
     align-items: center;
     gap: var(--paddingInlineCard);
   }
+
   .filters .search {
     width: 80vw;
   }
@@ -707,7 +745,6 @@ li span:nth-child(2) {
 
   .wrapper_list {
     width: 75vw;
-    /* background-color: red; */
   }
 
   .list_group {

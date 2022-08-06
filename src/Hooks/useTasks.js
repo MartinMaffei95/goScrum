@@ -12,6 +12,9 @@ export const useTasks = () => {
     if (tasks?.length) {
       setList(tasks);
       setRenderList(tasks);
+    } else {
+      setList([]);
+      setRenderList([]);
     }
   }, [tasks]);
 

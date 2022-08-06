@@ -22,6 +22,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { orange } from '@mui/material/colors';
 import { GoTriangleDown } from 'react-icons/go';
 import { useTasks } from '../../Hooks/useTasks';
+import useSearch from '../../Hooks/useSearch';
 
 const Tasks = () => {
   const [viewOn, setViewOn] = useState(false);
@@ -33,7 +34,6 @@ const Tasks = () => {
     importance: 'ALL',
   });
   const [isLoading, setIsLoading] = useState(false);
-  const [search, setSearch] = useState();
 
   const dispatch = useDispatch();
   const { REACT_APP_API_URL } = process.env;
@@ -69,14 +69,6 @@ const Tasks = () => {
     filterResults();
   }, [filters]);
 
-  useEffect(() => {
-    if (search) {
-      setRenderList(list.filter((data) => data.title.includes(search)));
-    } else {
-      setRenderList(list);
-    }
-  }, [search]);
-
   const filterResults = () => {
     if (renderList) {
       if (filters.importance === 'ALL' && filters.status === 'ALL') {
@@ -109,6 +101,7 @@ const Tasks = () => {
     });
   };
 
+  const { setSearch } = useSearch();
   const handleSearch = (e) => {
     setSearch(e.currentTarget.value);
   };
@@ -237,7 +230,7 @@ const Tasks = () => {
           {isPhone ? (
             // Render Phone
             !renderList?.length ? (
-              <div>No hay tareas creadas</div>
+              <div className="noTasks">No hay tareas creadas</div>
             ) : isLoading ? (
               <SkeletonTheme
                 baseColor="#898989"
@@ -251,7 +244,7 @@ const Tasks = () => {
             )
           ) : // Render Desktop
           !renderList?.length ? (
-            <div>No hay tareas creadas</div>
+            <div className="noTasks">No hay tareas creadas</div>
           ) : (
             <div className="list_group">
               <div className="list desk">
