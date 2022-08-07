@@ -15,7 +15,7 @@ export const tasksReducer = (state = initialState, action) => {
       };
 
     case TASKS_SUCCESS:
-      console.log(action.payload);
+      // console.log(action.payload);
       return {
         loading: false,
         error: '',

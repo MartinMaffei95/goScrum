@@ -23,23 +23,34 @@ import { orange } from '@mui/material/colors';
 import { GoTriangleDown } from 'react-icons/go';
 import { useTasks } from '../../Hooks/useTasks';
 import useSearch from '../../Hooks/useSearch';
+import useFilter from '../../Hooks/useFilter';
 
 const Tasks = () => {
   const [viewOn, setViewOn] = useState(false);
   const { isPhone } = useResize();
-  const { list, renderList, setRenderList } = useTasks();
+  const { tasksFetched } = useTasks();
+  const [list, setList] = useState(null);
+  const [renderList, setRenderList] = useState(null);
+  const { filterList, handleFilter, filters, setFilters } = useFilter(list);
+
   const [taskFromWho, setTaskFromWho] = useState('ALL');
-  const [filters, setFilters] = useState({
-    status: 'ALL',
-    importance: 'ALL',
-  });
+
   const [isLoading, setIsLoading] = useState(false);
 
   const dispatch = useDispatch();
-  const { REACT_APP_API_URL } = process.env;
 
   const handleEditCardStatus = (data) => dispatch(editTaskStatus(data));
   const handleDelete = (id) => dispatch(deleteTask(id));
+
+  useEffect(() => {
+    if (tasksFetched) {
+      setList(tasksFetched);
+      setRenderList(tasksFetched);
+    } else {
+      setList([]);
+      setRenderList([]);
+    }
+  }, [tasksFetched]);
 
   const renderCards = (status = null) => {
     if (status === null) {
@@ -66,45 +77,13 @@ const Tasks = () => {
   };
 
   useEffect(() => {
-    filterResults();
-  }, [filters]);
+    setRenderList(filterList);
+  }, [filterList]);
 
-  const filterResults = () => {
-    if (renderList) {
-      if (filters.importance === 'ALL' && filters.status === 'ALL') {
-        return setRenderList(list);
-      }
-      if (filters.status === 'ALL') {
-        return setRenderList(
-          list.filter((data) => data.importance === filters.importance)
-        );
-      }
-      if (filters.importance === 'ALL') {
-        return setRenderList(
-          list.filter((data) => data.status === filters.status)
-        );
-      }
-      return setRenderList(
-        list.filter(
-          (data) =>
-            data.status === filters.status &&
-            data.importance === filters.importance
-        )
-      );
-    }
-  };
-  const handleFilter = (e) => {
-    let { name, value } = e.currentTarget;
-    setFilters({
-      ...filters,
-      [name]: value,
-    });
-  };
-
-  const { setSearch } = useSearch();
-  const handleSearch = (e) => {
-    setSearch(e.currentTarget.value);
-  };
+  const { setSearch, handleSearch, searchData } = useSearch(list);
+  useEffect(() => {
+    setRenderList(searchData);
+  }, [searchData]);
 
   const { loading, error, tasks } = useSelector((state) => {
     return state.tasksReducer;
@@ -158,7 +137,7 @@ const Tasks = () => {
                   <select
                     name="importance"
                     onChange={handleFilter}
-                    onBlur={handleFilter}
+                    // onBlur={handleFilter}
                     value={filters.importance}
                   >
                     <option value="ALL">Todas</option>
@@ -172,7 +151,7 @@ const Tasks = () => {
                   <select
                     name="status"
                     onChange={handleFilter}
-                    onBlur={handleFilter}
+                    // onBlur={handleFilter}
                     value={filters.status}
                   >
                     <option value="ALL">Todas</option>

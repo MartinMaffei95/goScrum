@@ -23,7 +23,7 @@ export const getTasks = (path) => {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(`${REACT_APP_API_URL}task${path}`);
+        // console.log(`${REACT_APP_API_URL}task${path}`);
         dispatch(tasksSuccess(data.result));
       })
       .catch((error) => {

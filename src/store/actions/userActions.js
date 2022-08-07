@@ -9,7 +9,7 @@ export const userFailure = (error) => ({
 });
 
 export const getUserConfig = (config) => (dispatch) => {
-  console.log(config);
+  // console.log(config);
   //   dispatch(userRequest);
   //   dispatch(userSuccess({ theme_color: 'secondary' }));
 };
