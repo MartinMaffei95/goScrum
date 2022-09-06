@@ -5,7 +5,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
 import { v4 as uuidv4 } from 'uuid';
 import { Switch, FormControlLabel, avatarGroupClasses } from '@mui/material';
-
+import Swal from 'sweetalert2';
 const Register = () => {
   const [data, setData] = useState();
   const navigate = useNavigate();
@@ -71,7 +71,16 @@ const Register = () => {
         if (data.message === 'CREATED') {
           return navigate('/', { replace: true });
         }
-        alert('error');
+        Swal.fire({
+          icon: 'error',
+          title: 'EL USUARIO YA EXISTE',
+          text: 'El nombre de usuario o direccion de mail ya está en uso.',
+          confirmButtonText: 'Aceptar',
+          confirmButtonColor: '#ff6200',
+          width: '300px',
+          timer: 5000,
+          timerProgressBar: true,
+        });
       });
   };
 

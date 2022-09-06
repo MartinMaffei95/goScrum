@@ -76,6 +76,8 @@ function App() {
           }
         />
       </Routes>
+
+      <div>Chat CONVERSACIONES DE CHAT</div>
     </AnimatePresence>
   );
 }

@@ -31,7 +31,7 @@ const TaskForm = () => {
 
   const validationSchema = Yup.object().shape({
     title: Yup.string()
-      .min(4, 'minimo 4 caracetere')
+      .min(4, 'Debe tener minimo 4 caraceteres')
       .required(errorMessages.required),
     status: Yup.string().required(errorMessages.required),
     importance: Yup.string().required(errorMessages.required),
